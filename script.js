@@ -1,65 +1,40 @@
-const URL_APPS_SCRIPT =
-    "https://script.google.com/macros/s/AKfycbyoPidNoXwB2b5z-Boo2TF6_7ToVilmmtZEAWgll61gReH5c_bIu86FnbFvBuAsK2LJPw/exec";
+let alunos = [];
+
+function cadastrar() {
+
+    let nome = document.getElementById("nome").value;
+
+    alunos.push(nome);
+
+    document.getElementById("nome").value = "";
+
+    mostrarAlunos();
+}
 
 
-const formulario =
-    document.getElementById("formCadastro");
+function mostrarAlunos() {
 
-const mensagem =
-    document.getElementById("mensagem");
+    document.getElementById("aluno1").innerHTML =
+        "1 - " + alunos[0];
 
+    document.getElementById("aluno2").innerHTML =
+        "2 - " + alunos[1];
 
-formulario.addEventListener("submit", async function(event) {
-
-    event.preventDefault();
-
-
-    const nome =
-        document.getElementById("nome").value;
-
-    const curso =
-        document.getElementById("curso").value;
-
-    const email =
-        document.getElementById("email").value;
+    document.getElementById("aluno3").innerHTML =
+        "3 - " + alunos[2];
+}
 
 
-    const dados = {
-        nome: nome,
-        curso: curso,
-        email: email
-    };
+function remover() {
+
+    alunos.pop();
+
+    mostrarAlunos();
+}
 
 
-    mensagem.textContent = "Enviando dados...";
+function quantidade() {
 
-
-    try {
-
-        const resposta = await fetch(URL_APPS_SCRIPT, {
-
-            method: "POST",
-
-            body: JSON.stringify(dados),
-
-            mode: "no-cors"
-
-        });
-
-
-        mensagem.textContent =
-            "Aluno cadastrado com sucesso!";
-
-        formulario.reset();
-
-
-    } catch (erro) {
-
-        console.error("Erro:", erro);
-
-        mensagem.textContent =
-            "Erro ao cadastrar aluno.";
-
-    }
-
-});
+    document.getElementById("resultado").innerHTML =
+        "Quantidade de alunos: " + alunos.length;
+}
